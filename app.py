@@ -3,6 +3,8 @@ import os
 import csv
 from werkzeug.utils import secure_filename
 
+#if not os.path.isdir('/uploads'): 
+   #os.makedirs('/uploads')
 
 app = Flask(__name__)
 
