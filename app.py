@@ -3,10 +3,25 @@ import os
 import csv
 from werkzeug.utils import secure_filename
 
-#if not os.path.isdir('/uploads'): 
-   #os.makedirs('/uploads')
+# Strip out blank values from extra cols
+def remove_blanks(data_row):
+    cleaned = []
+    for i in range(len(data_row)):
+        if data_row[i] != '':
+            cleaned.append(data_row[i])  
+    return cleaned
+
+# Create uploads folder if it doesn't exist
+path = os.getcwd()
+UPLOAD_FOLDER = os.path.join(path, 'uploads')
+
+if not os.path.isdir(UPLOAD_FOLDER):
+    os.mkdir(UPLOAD_FOLDER)
+
 
 app = Flask(__name__)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -19,14 +34,6 @@ def index():
         with open('uploads/'+fname, encoding='utf-8') as df:
             csv_data = csv.reader(df)
             data_rows = list(csv_data)
-        
-        # Strip out blank values from extra cols
-        def remove_blanks(data_row):
-            cleaned = []
-            for i in range(len(data_row)):
-                if data_row[i] != '':
-                    cleaned.append(data_row[i])  
-            return cleaned
         
         # Gather column names from first row of CSV
         columns = []
@@ -54,7 +61,10 @@ def index():
                 output_file.write(insert_str+'\n')
         
         # Return the output file to the user
-        return send_file('insert.sql')
+        try:
+            return send_file('insert.sql')
+        except FileNotFoundError:
+            abort(404)
     
     # If the request is a GET request, render the HTML form
     return render_template("index.html")
