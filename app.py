@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, send_file
 import os
 import csv
+import magic
 from werkzeug.utils import secure_filename
 
 
@@ -54,7 +55,7 @@ def index():
         
         with open('insert.sql', mode='w+',newline='') as output_file:
             for row in insert_stmts:
-                output_file.writelines(row)
+                output_file.write(row + '\n')
                 
         try:
             return send_file('insert.sql')
