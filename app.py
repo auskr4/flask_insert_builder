@@ -3,13 +3,6 @@ import os
 import csv
 from werkzeug.utils import secure_filename
 
-# Strip out blank values from extra cols
-def remove_blanks(data_row):
-    cleaned = []
-    for i in range(len(data_row)):
-        if data_row[i] != '':
-            cleaned.append(data_row[i])  
-    return cleaned
 
 # Create uploads folder if it doesn't exist
 path = os.getcwd()
@@ -30,37 +23,39 @@ def index():
         fname = secure_filename(file.filename)
         file.save('uploads/'+fname)
         
-        # Read the CSV file
+        # Read the CSV file into csv_data
         with open('uploads/'+fname, encoding='utf-8') as df:
             csv_data = csv.reader(df)
-            data_rows = list(csv_data)
-        
-        # Gather column names from first row of CSV
-        columns = []
-        for col in data_rows[1]:
-            if col != '':
-                columns.append(col)
-        colstr = ','.join(columns) #join list to be used in insert_str
-        
+
+            # If not blank, extract column name to columns list from first row of csv_data
+            columns = [column for column in next(csv_data) if column]
+
+            # Create dictionary with a key for each column in columns, empty list for values
+            coldata = {column: [] for column in columns}
+
+            # Fill coldata dict with corresponding values
+            for row in csv_data:
+                for i, column in enumerate(columns):
+                    coldata[column].append(row[i])
+
+                 
         # Get the name of the table to insert into from the user
         dest_table = request.form['dest_table']
+
+        insert_stmts = []
         
-        # Open the output file
-        with open('insert.sql', mode='w+', newline='') as output_file:
-            for r in data_rows[2:]:
-                values = ""
-                clean_row = remove_blanks(r)
-                for i in range(len(clean_row)):
-                    tmp = ""
-                    if clean_row[i] != '':
-                        tmp += "'"+clean_row[i]+"'"
-                        values += tmp
-                        if len(clean_row) - i > 1:
-                            values += ","
-                insert_str = "INSERT into {} ({})\nVALUES ({});".format(dest_table, colstr, values)
-                output_file.write(insert_str+'\n')
+        for i in range(len(coldata[columns[0]])):
+            insert_stmt = "INSERT INTO {} ({}) VALUES ({})".format(
+                dest_table,
+                ', '.join(["'{}'".format(column) for column in columns]),
+                ', '.join(["'{}'".format(coldata[column][i]) for column in columns])
+            )
+            insert_stmts.append(insert_stmt)
         
-        # Return the output file to the user
+        with open('insert.sql', mode='w+',newline='') as output_file:
+            for row in insert_stmts:
+                output_file.writelines(row)
+                
         try:
             return send_file('insert.sql')
         except FileNotFoundError:
