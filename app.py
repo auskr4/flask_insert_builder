@@ -3,20 +3,15 @@ import os
 import csv
 import magic
 from werkzeug.utils import secure_filename
-from lib.secretkey import secret_key
 
 ALLOWED_FILE_TYPES = ['text/plain']
 
-# Create uploads folder if it doesn't exist
+app = Flask(__name__)
+
 path = os.getcwd()
 UPLOAD_FOLDER = os.path.join(path, 'uploads')
-
 if not os.path.isdir(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
-
-
-app = Flask(__name__)
-app.secret_key = secret_key
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -27,15 +22,13 @@ def index():
         fname = secure_filename(file.filename)
 
         file_type = magic.from_buffer(file.read(), mime=True)
-        if file_type in ALLOWED_FILE_TYPES:
-            file.seek(0)
-            file.save('uploads/'+fname)
-        else:
-            print("time to flash")
-            flash("Invalid file type. Please choose a file of the allowed types: {}".format(ALLOWED_FILE_TYPES))
-            return render_template("index.html")
+        if file_type not in ALLOWED_FILE_TYPES:
+            ft_error = "Invalid File Type.  Please choose a CSV file."
+            return render_template("index.html", error=ft_error)
 
-        
+        file.seek(0)
+        file.save('uploads/'+fname)
+
         # Read the CSV file into csv_data
         with open('uploads/'+fname, encoding='utf-8') as df:
             csv_data = csv.reader(df)
