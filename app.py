@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, flash
 import os
 import csv
 import magic
 from werkzeug.utils import secure_filename
+from lib.secretkey import secret_key
 
+ALLOWED_FILE_TYPES = ['text/plain']
 
 # Create uploads folder if it doesn't exist
 path = os.getcwd()
@@ -14,6 +16,7 @@ if not os.path.isdir(UPLOAD_FOLDER):
 
 
 app = Flask(__name__)
+app.secret_key = secret_key
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -22,19 +25,25 @@ def index():
     if request.method == "POST":
         file = request.files['file']
         fname = secure_filename(file.filename)
-        file.save('uploads/'+fname)
+
+        file_type = magic.from_buffer(file.read(), mime=True)
+        if file_type in ALLOWED_FILE_TYPES:
+            file.seek(0)
+            file.save('uploads/'+fname)
+        else:
+            print("time to flash")
+            flash("Invalid file type. Please choose a file of the allowed types: {}".format(ALLOWED_FILE_TYPES))
+            return render_template("index.html")
+
         
         # Read the CSV file into csv_data
         with open('uploads/'+fname, encoding='utf-8') as df:
             csv_data = csv.reader(df)
 
-            # If not blank, extract column name to columns list from first row of csv_data
             columns = [column for column in next(csv_data) if column]
-
-            # Create dictionary with a key for each column in columns, empty list for values
+            
             coldata = {column: [] for column in columns}
 
-            # Fill coldata dict with corresponding values
             for row in csv_data:
                 for i, column in enumerate(columns):
                     coldata[column].append(row[i])
