@@ -4,9 +4,12 @@ import csv
 import magic
 from werkzeug.utils import secure_filename
 
-ALLOWED_FILE_TYPES = ['text/plain']
 
 app = Flask(__name__)
+
+# Load config from config file
+app.config.from_pyfile('config.py')
+ALLOWED_FILE_TYPES = app.config['ALLOWED_FILE_TYPES']
 
 path = os.getcwd()
 UPLOAD_FOLDER = os.path.join(path, 'uploads')
@@ -29,6 +32,7 @@ def index():
         file.seek(0)
         file.save('uploads/'+fname)
 
+
         # Read the CSV file into csv_data
         with open('uploads/'+fname, encoding='utf-8') as df:
             csv_data = csv.reader(df)
@@ -41,8 +45,7 @@ def index():
                 for i, column in enumerate(columns):
                     coldata[column].append(row[i])
 
-                 
-        # Get the name of the table to insert into from the user
+        # Get table name from user input         
         dest_table = request.form['dest_table']
 
         insert_stmts = []
@@ -55,6 +58,7 @@ def index():
             )
             insert_stmts.append(insert_stmt)
         
+        # Write to output file
         with open('insert.sql', mode='w+',newline='') as output_file:
             for row in insert_stmts:
                 output_file.write(row + '\n')
