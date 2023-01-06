@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>CSV to SQL Insert Builder</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+  </head>
+  <body>
+    <h1>CSV to SQL Insert Builder</h1>
+    <p>This tool allows you to convert a CSV file into a SQL insert script</p>
+    <form enctype="multipart/form-data" action="/" method="POST">
+      <p>Please select a CSV file to upload:</p>
+      <input type="file" name="file" required>
+      {% if error %}
+      <script>
+        window.alert("{{ error }}")
+      </script>
+      {% endif %}
+      <br>
+      <br>
+      <p>Enter the name of the table to insert into:</p>
+      <input type="text" name="dest_table" autocomplete="off" required>
+      <br>
+      <input type="submit" value="Generate Insert Script">
+    </form>
+  </body>
+</html>

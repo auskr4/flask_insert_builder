@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
+app.debug=True
 
 # Load config from config file
 app.config.from_pyfile('config.py')

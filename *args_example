@@ -1,0 +1,56 @@
+import csv
+import os
+
+from flask import Flask, abort, render_template, request, send_file
+from werkzeug.utils import secure_filename
+
+ALLOWED_FILE_TYPES = ['text/plain']
+
+app = Flask(__name__)
+
+UPLOAD_FOLDER = os.path.join(app.root_path, 'uploads')
+if not os.path.isdir(UPLOAD_FOLDER):
+    os.mkdir(UPLOAD_FOLDER)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+
+        file_type = magic.from_buffer(file.read(), mime=True)
+        if file_type not in ALLOWED_FILE_TYPES:
+            return render_template('index.html', error='Invalid File Type. Please choose a CSV file.')
+
+        file.seek(0)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), encoding='utf-8') as f:
+            reader = csv.reader(f)
+
+            columns = [column for column in next(reader) if column]
+            data = {column: [] for column in columns}
+
+            for row in reader:
+                for i, column in enumerate(columns):
+                    data[column].append(row[i])
+
+        dest_table = request.form['dest_table']
+
+        insert_stmts = []
+        for i in range(len(data[columns[0]])):
+            insert_stmt = f"INSERT INTO {dest_table} ({', '.join(['{}' for _ in columns])}) VALUES ({', '.join(['{}' for _ in columns])})"
+            insert_stmts.append(insert_stmt.format(*columns, *[data[column][i] for column in columns]))
+
+        with open('insert.sql', mode='w+', newline='') as output_file:
+            for row in insert_stmts:
+                output_file.write(row + '\n')
+
+        try:
+            return send_file('insert.sql')
+        except FileNotFoundError:
+            abort(404)
+
+    return render_template('index.html')
