@@ -16,8 +16,7 @@ path = os.getcwd()
 upload_path = os.path.join(path, UPLOAD_FOLDER)
 if not os.path.isdir(upload_path):
     os.mkdir(upload_path)
-
-#app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -27,14 +26,13 @@ def index():
 
         file_type = magic.from_buffer(file.read(), mime=True)
         if file_type not in ALLOWED_FILE_TYPES:
-            #ft_error = "Invalid File Type.  Please choose a CSV file."
             return render_template("index.html", error="Invalid File Type.  Please choose a CSV file.")
 
         file.seek(0)
         file.save(os.path.join(upload_path, fname))
 
         file_path = os.path.join(upload_path, fname)
-        print(file_path)
+        #print(file_path)
         if not os.path.exists(file_path):
             return render_template("index.html", error="The chosen file no longer exists.  Please try again.")
 
