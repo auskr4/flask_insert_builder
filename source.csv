@@ -1,5 +1,4 @@
-id,first_name,last_name,,
-1,First1,Last1,,
-2,First2,Last2,,
-3,First3,Last3,,
-4,First4,Last4,,
+﻿TEST_TYPE_CODE,VALUE,KEY_RES
+TEST1,cats,100000
+TEST2,dogs,100001
+TEST3,monks,100002

@@ -10,6 +10,7 @@
     <form enctype="multipart/form-data" action="/" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2">
       <p>Please select a CSV file to upload:</p>
       <input type="file" name="file" required class="shadow appearance-none border rounded w-3/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      <!--<input type="file" name="file" required class="w-3/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"> -->
       {% if error %}
       <script>
         window.alert("{{ error }}")
@@ -20,7 +21,7 @@
       <p>Enter the name of the table to insert into:</p>
       <input type="text" name="dest_table" autocomplete="off" required class="shadow appearance-none border rounded w-3/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2">
       <br>
-      <input type="submit" value="Generate Insert Script" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+      <input type="submit" value="Generate Insert Script" class="shadow bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
     </form>
   </body>
 </html>
