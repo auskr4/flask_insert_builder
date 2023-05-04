@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>CSV to SQL Insert Builder</title>
@@ -23,5 +24,26 @@
       <br>
       <input type="submit" value="Generate Insert Script" class="shadow bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
     </form>
+    <script>
+      document.querySelector("form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const response = await fetch("/", { method: "POST", body: formData });
+
+        if (response.ok) {
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "insert.sql";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        } else {
+          const error = await response.text();
+          alert(error);
+        }
+      });
+    </script>
   </body>
 </html>

@@ -1,0 +1,71 @@
+TEST_TYPE_CODE,VALUE,KEY_RES
+FATMCT,Light comparison microscopy (LCM),50171
+FATMCT,Virtual comparison microscopy (VCM),50172
+FATMCT,Stereoscope micro/macro comparison,50173
+FATMCT,3D digital measurement/imagery comparison,50174
+FATMCT,Fracture plane comparison,50175
+FATMCT,Physical item side by side comparison,50176
+FATMCT,Photogrammetry,50177
+FATMCT,Photography/digital comparison,50178
+FATMCT,Other (describe),50179
+FATMEOF,Limited Agreement – Class characteristics,50180
+FATMEOF,Limited Agreement – Individual distinguishing char.,50181
+FATMEOF,Limited Agreement – fractured item features,50182
+FATMEOF,Agreement – Class characteristics,50183
+FATMEOF,Agreement – Individual distinguishing char.,50184
+FATMEOF,Agreement – fractured item features,50185
+FATMEOF,Disagreement – Class characteristics,50186
+FATMEOF,Disagreement – Individual distinguishing char.,50187
+FATMEOF,Disagreement – fractured item features,50188
+FATMEOF,Meaningful eval. not possible – Class characteristics,50189
+FATMEOF,Meaningful eval. not possible – Individual distinguishing char.,50190
+FATMEOF,Meaningful eval. not possible – fractured item features,50191
+FATMEOF,Other conclusion – (specify),50192
+FATMFUFC,BLT - Barrel accessory marks,50193
+FATMFUFC,BLT - Feed/Cycling marks,50194
+FATMFUFC,BLT - No suitable markings observed,50195
+FATMFUFC,BLT - Ported barrel marks,50196
+FATMFUFC,BLT - Reload/handload marks,50197
+FATMFUFC,BLT - Rifling,50198
+FATMFUFC,CC – Breechface (BF),50199
+FATMFUFC,CC - Chamber marks (CHAM),50200
+FATMFUFC,CC - Cycling Marks (CYC),50201
+FATMFUFC,CC - Ejection port,50202
+FATMFUFC,CC – Ejector (EJT),50203
+FATMFUFC,CC – Extractor (EXT),50204
+FATMFUFC,CC - FP Apert. Shear (FPAS),50205
+FATMFUFC,CC - FP Drag (FPD),50206
+FATMFUFC,CC - FP imp. (FPI),50207
+FATMFUFC,CC - Magazine marks,50208
+FATMFUFC,CC - No suitable markings observed,50209
+FATMFUFC,Phyfit – Color,50210
+FATMFUFC,Phyfit – Composition/layering,50211
+FATMFUFC,Phyfit – Contours,50212
+FATMFUFC,Phyfit - Dimensions,50213
+FATMFUFC,Phyfit – Fracture plane,50214
+FATMFUFC,Phyfit – No suitable features to compare,50215
+FATMFUFC,Phyfit – TM crossover (two or more items),50216
+FATMFUFC,TM – Cleaving,50217
+FATMFUFC,TM – Compression,50218
+FATMFUFC,TM - Cutting,50219
+FATMFUFC,TM - Gripping,50220
+FATMFUFC,TM - Impressed,50221
+FATMFUFC,TM – No suitable markings observed,50222
+FATMFUFC,TM - Pinching,50223
+FATMFUFC,TM - Prying,50224
+FATMFUFC,TM – Shearing,50225
+FATMFUFC,TM – Specialized (describe),50226
+FATMFUFC,TM – Striated,50227
+FATMFUFC,Other #1 (describe),50228
+FATMFUFC,Other #2 (describe),50229
+FATMFIND,Insufficient/lacks detail,50230
+FATMFIND,Exclusion based on class characteristics,50231
+FATMFIND,Exclusion based on random/indiv. characteristics,50232
+FATMFIND,Exclusion based on combined class/indiv. characteristics,50233
+FATMFIND,AFTE theory - Inconclusive “C”,50234
+FATMFIND,AFTE theory - Inconclusive “B”,50235
+FATMFIND,AFTE theory – Inconclusive “A”,50236
+FATMFIND,Identification,50237
+FATMFIND,Exclusion – significant fractured item feature differences,50238
+FATMFIND,Inconclusive – feature similarity – no shared fracture plane,50239
+FATMFIND,Feature similarity + fracture plane correspondence - previously joined items,50240

@@ -1,0 +1,77 @@
+TEST_TYPE_CODE,VALUE,KEY_RES
+FAQTITO,Dry origin (2D) – dust/residue,50074
+FAQTITO,Dry origin (3D) – dirt/sand,50075
+FAQTITO, Dry origin – other (describe),50076
+FAQTITO, Undetermined (describe),50077
+FAQTITO,Wet origin – blood/biohazard,50078
+FAQTITO,Wet origin – oil/grease,50079
+FAQTITO,Wet origin – other (describe),50080
+FAQTITO,Wet origin – paint/ink,50081
+FAQTITO,Wet origin (2D) – water/wet residue,50082
+FAQTITO,Wet origin (3D) – mud/soil,50083
+FAQTITO,Wet origin (3D) – snow,50084
+FAQTOD,Background/substrate interference,50085
+FAQTOD,Broken/torn material,50086
+FAQTOD,Migration (wet residues),50087
+FAQTOD, Not applicable,50088
+FAQTOD, Other (describe),50089
+FAQTOD,Overlapped impressions/objects,50090
+FAQTOD,Skidding,50091
+FAQTOD,Twisting/pivoting,50092
+FAQTOD,Unknown textures,50093
+FAQTTPS,All-season,50094
+FAQTTPS, Asymmetrical,50095
+FAQTTPS,Directional,50096
+FAQTTPS,Off-road/aggressive,50097
+FAQTTPS,Other (describe),50098
+FAQTTPS,Specialty,50099
+FAQTTPS,Symmetrical,50100
+FAQTRM,Not measured,50101
+FAQTRM,Tire Track width (widest):,50102
+FAQTRM,Wear Indicator spacing:,50103
+FAQTRM,Tire band/rib width (A):,50104
+FAQTRM,Tire band/rib width (B):,50105
+FAQTRM, Tire band/rib width (C):,50106
+FAQTRM,Tire band/rib width (D):,50107
+FAQTRM,Tire band/rib width (E):,50108
+FAQTRM, Tire band/rib width (F):,50109
+FAQTRM, Tire band/rib width (G):,50110
+FAQTRM,Tire band/rib width (H):,50111
+FAQTRM,Tire groove width (1):,50112
+FAQTRM,Tire groove width (2):,50113
+FAQTRM,Tire groove width (3):,50114
+FAQTRM,Tire groove width (4):,50115
+FAQTRM,Tire groove width (5):,50116
+FAQTRM,Tire groove width (6):,50117
+FAQTRM,Tire groove width (7):,50118
+FAQTRM,Tire groove width (8):,50119
+FAQTRM, Other feature measurement (specify):,50120
+FAQTRM,Other feature measurement (specify):,50121
+FAQTRM, Other feature measurement (specify):,50122
+FAQTIF,Abrasion(s)/scrape(s),50123
+FAQTIF,Bent sipes,50124
+FAQTIF,Cut(s),50125
+FAQTIF,Distinctive wear,50126
+FAQTIF,Feathering,50127
+FAQTIF,Flap(s)/tear(s),50128
+FAQTIF,Flash/flashing,50129
+FAQTIF,Foreign object(s) (describe),50130
+FAQTIF,Gouge(s)/void(s),50131
+FAQTIF,Manuf. defect (describe),50132
+FAQTIF,Mold feature(s)/texture,50133
+FAQTIF, Mold air bubbles,50134
+FAQTIF,Not applicable,50135
+FAQTIF,Other #1 (describe),50136
+FAQTIF,Other #2 (describe),50137
+FAQTIF,Puncture(s),50138
+FAQTIF,Schallamach pattern,50139
+FAQTIF,Stone hold(s),50140
+FAQTIF,Studs/cleats (describe),50141
+FAQTIF, Tire plug,50142
+FAQTIF, Tire repair (other),50143
+FAQTIF,Traction accessory features,50144
+FAQTEA, Yes – Digital (software) processing,50145
+FAQTEA, Yes – Chemical processing,50146
+FAQTEA,Yes – Specialized lighting/photography,50147
+FAQTEA,No,50148
+FAQTEA,Other (describe),50149

@@ -4,7 +4,6 @@ import csv
 import magic
 from werkzeug.utils import secure_filename
 
-
 app = Flask(__name__)
 app.debug=True
 
@@ -17,7 +16,6 @@ upload_path = os.path.join(path, UPLOAD_FOLDER)
 if not os.path.isdir(upload_path):
     os.mkdir(upload_path)
     
-
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
@@ -26,34 +24,29 @@ def index():
 
         file_type = magic.from_buffer(file.read(), mime=True)
         if file_type not in ALLOWED_FILE_TYPES:
-            return render_template("index.html", error="Invalid File Type.  Please choose a CSV file.")
+            return "Invalid File Type.  Please choose a CSV file.", 400
 
         file.seek(0)
         file.save(os.path.join(upload_path, fname))
 
         file_path = os.path.join(upload_path, fname)
-        #print(file_path)
         if not os.path.exists(file_path):
-            return render_template("index.html", error="The chosen file no longer exists.  Please try again.")
+            return "The chosen file no longer exists.  Please try again.", 400
 
-        # Read the CSV file into csv_data
         with open('uploads/'+fname, encoding='utf-8') as df:
             csv_data = csv.reader(df)
 
             columns = [column for column in next(csv_data) if column]
-            
             coldata = {column: [] for column in columns}
 
             for row in csv_data:
                 for i, column in enumerate(columns):
                     coldata[column].append(row[i])
 
-        # Get table name from user input         
         dest_table = request.form['dest_table']
 
         insert_stmts = []
 
-        print(columns)
         for i in range(len(coldata[columns[0]])):
             insert_stmt = "INSERT INTO {} ({}) VALUES ({})".format(
                 dest_table,
@@ -62,15 +55,13 @@ def index():
             )
             insert_stmts.append(insert_stmt)
         
-        # Write to output file
         with open('insert.sql', mode='w+',newline='') as output_file:
             for row in insert_stmts:
                 output_file.write(row + '\n')
                 
         try:
-            return send_file('insert.sql')
+            return send_file('insert.sql', mimetype='application/sql')
         except FileNotFoundError:
-            return render_template("index.html", error="Your file couldn’t be accessed. It may have been moved, edited")
-    
-    # If the request is a GET request, render the HTML form
+            return "Your file couldn’t be accessed. It may have been moved, edited, or deleted.", 400
+
     return render_template("index.html")
